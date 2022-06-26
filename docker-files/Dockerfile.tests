@@ -1,0 +1,10 @@
+FROM node:alpine
+
+WORKDIR /usr/app
+
+RUN apk add curl
+
+COPY ../package.json /usr/app
+RUN npm install --quiet
+
+COPY .. /usr/app/

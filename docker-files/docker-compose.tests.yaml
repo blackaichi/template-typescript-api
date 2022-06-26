@@ -1,0 +1,32 @@
+version: '3'
+services:
+    app_dev:
+        container_name: app_dev
+        build:
+            context: ..
+            dockerfile: docker-files/Dockerfile.app
+        working_dir: /usr/app
+        command: npm run start
+        env_file:
+            - ../.env.local
+        networks:
+            - localNetwork
+        environment:
+            - ENVIRONMENT=development
+        restart: on-failure
+
+    app_tests:
+        container_name: app_tests
+        build:
+            context: ..
+            dockerfile: docker-files/Dockerfile.tests
+        working_dir: /usr/app
+        command: sh docker-files/wait-for-it.sh
+        env_file:
+            - ../.env.local
+        networks:
+            - localNetwork
+
+networks:
+    localNetwork:
+        driver: bridge

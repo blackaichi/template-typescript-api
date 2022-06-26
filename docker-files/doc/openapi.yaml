@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore
+  description: 'This is a sample template.  You can find out more about this template in this [github](https://github.com/blackaichi).'
+  license:
+    name: WTFPL 2.0
+    url: https://directory.fsf.org/wiki/License:WTFPL
+  version: 1.0.0
+servers:
+- url: http://{domain}:{port}/{route}
+  description: development server
+  variables: 
+    domain: 
+      default: localhost
+    route:
+      default: api/v1
+    port:
+      default: "8080"
+- url: https://{domain}:{port}/{route}
+  description: production server
+  variables: 
+    domain: 
+      default: localhost
+    route:
+      default: api/v1
+    port:
+      default: "8080"
+paths:
+  /healthcheck:
+    get:
+      summary: Check that the API is up
+      responses:
+        200:
+          description: The API is up
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+components:
+  schemas:
+    Healthcheck:
+      type: object
+      properties:
+        success:
+          type: boolean
